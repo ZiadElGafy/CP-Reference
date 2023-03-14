@@ -1,59 +1,67 @@
+const int D = 100 + 1;
 template<typename T>
 struct Matrix {
 /*
-                  [ 0, 1 ]
- [ f(0), f(1) ] * [ 1, 1 ] = [ f(1), f(2) ]
+                     [ 0, 1 ]
+    [ f(0), f(1) ] * [ 1, 1 ] = [ f(1), f(2) ]
 
- Transition: T[X][Y] = Z => newY += oldX * Z
+    Transition: T[X][Y] = Z => newY += oldX * Z (from X to Y)
 */
     int r, c;
-    vector<vector<T>> m;
+    T m[D][D] = {};
 
     Matrix() {}
 
     Matrix(int n) { // identity
         this->r = n;
         this->c = n;
-        m.assign(n + 1, vector<T>(n + 1));
 
-        for(int i = 1; i <= n; i++)
+        for (int i = 1; i <= n; i++)
             m[i][i] = 1;
     }
 
     Matrix(int r, int c) {
         this->r = r;
         this->c = c;
-        m.assign(r + 1, vector<T>(c + 1));
     }
 
     Matrix(int r, int c, T val) {
         this->r = r;
         this->c = c;
-        m.assign(r + 1, vector<T>(c + 1, val));
+
+        for (int i = 1; i <= r; i++)
+            for (int j = 1; j <= c; j++)
+                m[i][j] = val;
     }
 
     void setRow(int row, T val) {
-        for(int j = 1; j <= c; j++)
+        for (int j = 1; j <= c; j++)
             m[row][j] = val;
     }
 
     void setColumn(int col, T val) {
-        for(int i = 1; i <= r; i++)
+        for (int i = 1; i <= r; i++)
             m[i][col] = val;
     }
 
-    Matrix operator *(Matrix other) {
-        if(c != other.r) {
+    Matrix operator*(Matrix other) {
+        if (c != other.r) {
             cout << "Invalid dimensions for multiplication" << endl;
             assert(0);
         }
 
         Matrix ret = Matrix(r, other.c);
 
-        for(int i = 1; i <= r; i++)
-            for(int j = 1; j <= other.c; j++)
-                for(int k = 1; k <= c; k++)
-                    ret.m[i][j] = (ret.m[i][j] + (1LL * m[i][k] * other.m[k][j]) % mod) % mod;
+        for (int i = 1; i <= r; i++) {
+            for (int j = 1; j <= c; j++) {
+                for (int k = 1; k <= other.c; k++) {
+                    ret.m[i][k] += (1LL * m[i][j] * other.m[j][k]) % mod;
+
+                    if (ret.m[i][k] >= mod)
+                        ret.m[i][k] -= mod;
+                }
+            }
+        }
 
         return ret;
     }
@@ -61,8 +69,8 @@ struct Matrix {
     friend Matrix<T> matPower(Matrix a, ll p) {
         Matrix<T> ret(a.r);
 
-        while(p){
-            if(p & 1)
+        while (p) {
+            if (p & 1)
                 ret = ret * a;
 
             p >>= 1;
@@ -72,11 +80,12 @@ struct Matrix {
         return ret;
     }
 
-    void print() {
-        cout << "Matrix: " << r << ' ' << c << el << "-------" << el;
-        for(int i = 1; i <= r; i++, cout << el)
-            for(int j = 1; j <= c; j++)
-                cout << m[i][j] << ' ';
-        cout << el;
+    friend ostream &operator<<(ostream &out, const Matrix<T> &a){
+        cout << "Matrix " << a.r << ' ' << a.c << el;
+        for (int i = 1; i <= a.r; i++, cout << el)
+            for (int j = 1; j <= a.c; j++)
+                cout << a.m[i][j] << ' ';
+        cout << "--------------" << el;
+        return out;
     }
 };
