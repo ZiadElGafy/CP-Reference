@@ -61,14 +61,9 @@ struct SegmentTree{
             return;
  
         if(left <= start and end <= right){
-            tree[node] += val * (end - start + 1);
- 
-            if(start < end){
-                lazy[2 * node] += val;
-                lazy[2 * node + 1] += val;
-            }
- 
-            return;
+            lazy[node] += val * (end - start + 1);
+            propagate(node, start, end);
+            return void();
         }
  
         int m = (start + end) >> 1;
@@ -88,14 +83,9 @@ struct SegmentTree{
             return;
  
         if(left <= start and end <= right){
-            tree[node] = val;
- 
-            if(start < end){
-                lazy[2 * node] = val;
-                lazy[2 * node + 1] = val;
-            }
- 
-            return;
+            lazy[node] = val;
+            propagate(node, start, end);
+            return void();
         }
  
         int m = (start + end) >> 1;
