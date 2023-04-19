@@ -40,7 +40,7 @@ vector<int> prefixFunction(string &pattern) {
             j = lps[j - 1];
         }
 
-        if (patter[j] == pattern[i]) {
+        if (pattern[j] == pattern[i]) {
             lps[i] = j + 1;
         }
     }
