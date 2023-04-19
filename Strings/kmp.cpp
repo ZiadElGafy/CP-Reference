@@ -78,7 +78,7 @@ for (int i = 0; i < n; i++) {
 
 // accumulate smaller prefixes ending at the same position
 for (int i = n - 1; i > 0; i--) {
-    ans[lps[i - 1]] += lps[i];
+    ans[lps[i - 1]] += ans[i];
 }
 
 // count the suffixes themselves (each suffix occurs once at the start)
