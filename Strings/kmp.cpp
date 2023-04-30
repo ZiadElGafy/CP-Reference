@@ -3,8 +3,8 @@ Classic problem: given a string t and a pattern p, find all occurrences of p in 
 
 0 1 2 3 4 5 6 7 8 9
 a b d a b c a b c a
-         a b c a (index 3)
-                  a b c a (index 6)
+      a b c a (index 3)
+            a b c a (index 6)
 
 Brute: O(n * m)
 
