@@ -81,7 +81,7 @@ for (int i = n - 1; i > 0; i--) {
     freq[pi[i - 1]] += freq[i];
 }
 
-// count the suffixes themselves (each suffix occurs once at the start)
+// count the prefixes themselves (each prefix occurs once at the start)
 for (int i = 0; i <= n; i++) {
     freq[i]++;
 }
