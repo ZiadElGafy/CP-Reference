@@ -106,7 +106,7 @@ If we find the max value in the pi array of t (the longest prefix which appears 
 
 O(n^2)
 
-Application 4 - compressing a string s (finding shortest t where t * n = s)
+Application 4 - compressing a string s (finding shortest t where t * number = s)
 
 k = n - pi[n - 1]
 
