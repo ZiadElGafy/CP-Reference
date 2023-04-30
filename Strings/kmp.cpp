@@ -14,13 +14,13 @@ Prefix function: the length of the longest proper prefix which is also a suffix 
 
 pi[N]: an array where pi[i] = the prefix function of substring(0, i)
 
-Idx:	      0 1 2 3 4 5 6 7 8 9
+Idx:	        0 1 2 3 4 5 6 7 8 9
 string: 	a b d a b c a b c a
-pi: 	      0 0 0 1 2 0 1 2 0 1
+pi: 	        0 0 0 1 2 0 1 2 0 1
 
-Idx:	      0 1 2 3 4 5 6 7 8 9
+Idx:	        0 1 2 3 4 5 6 7 8 9
 string: 	a b c a b c a b c a
-pi: 	      0 0 0 1 2 3 4 5 6 7
+pi: 	        0 0 0 1 2 3 4 5 6 7
 
 pi[0] = 0 because there is no proper prefix of a string of 1 character
 
