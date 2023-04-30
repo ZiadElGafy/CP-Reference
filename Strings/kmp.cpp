@@ -70,6 +70,7 @@ pi[i] is the length of the longest proper prefix which is a suffix that ends at 
 So at position i, prefixes of the following sizes end: pi[i], pi[pi[i] - 1], pi[pi[pi[i] - 1] - 1] and so on until the index becomes zero
 
 vector<int> freq(n + 1);
+int n = s.size();
 
 // count the longest prefixes at each position (pi[i])
 for (int i = 0; i < n; i++) {
@@ -88,6 +89,10 @@ for (int i = 0; i <= n; i++) {
 
 Counting the number of occurrences of each prefix s[0…i] in string t:
 Get the string s + ‘#’ + t and do the same but ignore the first s.size() + 1 indices the final loop only goes on for the lcp of s and t (i <= lcp(s, t))
+
+n = s.size() + 1 + t.size();
+first loop: i = s.size() + 1
+third loop; i <= lcp(s, t)
 
 Application 3 - finding the number of different substrings in a string:
 
