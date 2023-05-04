@@ -22,7 +22,11 @@ namespace ACA {
         endHere[cur].push_back(idx);
     }
  
-    void build() {
+    void init(string patterns[], int n) {
+        for (int i = 0; i < n; i++) {
+            insert(patterns[i], i);
+        }
+
         queue<int> q;
         
         for (int i = 0; i < ALPHABET; i++) {
@@ -55,20 +59,6 @@ namespace ACA {
                 q.push(trie[cur][i]);
             }
         }
-    }
- 
-    void init(string patterns[], int n) {
-        /*
-         * MAKE SURE THAT THE STRINGS IN P ARE UNIQUE3
-         * n is the number of patterns
-         * m is the size of the alphabet
-        */
- 
-        for (int i = 0; i < n; i++) {
-            insert(patterns[i], i);
-        }
- 
-        build();
     }
  
     int nextState(int trieNode, char nxt) {
