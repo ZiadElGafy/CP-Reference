@@ -1,11 +1,17 @@
 struct FenwickTree {
-    int a[N], b[N];
+    vector<int> a, b;
 
-    int sum(int arr[], int r) {
+    FenwickTree(int n) {
+        a.assign(n, 0);
+        b.assign(n, 0);
+    }
+
+    int sum(vector<int> &v, int r) {
         int ret = 0;
 
-        for (; r >= 0; r = (r & (r + 1)) - 1)
-            ret += arr[r];
+        for (; r >= 0; r = (r & (r + 1)) - 1) {
+            ret += v[r];
+        }
 
         return ret;
     }
@@ -18,9 +24,10 @@ struct FenwickTree {
         return solve(r) - solve(l - 1);
     }
 
-    void set(int arr[], int i, int d) {
-        for (; i < N; i = i | (i + 1))
-            arr[i] += d;
+    void set(vector<int> &v, int i, int d) {
+        for (; i < v.size(); i = i | (i + 1)) {
+            v[i] += d;
+        }
     }
 
     void add(int l, int r, int d) {
