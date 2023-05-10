@@ -3,10 +3,10 @@
 namespace ACA {
     const int ALPHABET = 26;
     vector<int> endHere[N];
-    int pi[N] = {-1};
+    int pi[N] = {-1}, nodeInACA[N];
     vector<vector<int>> trie(1, vector<int>(ALPHABET, -1));
  
-    void insert(string &s, int idx) {
+    int insert(string &s, int idx) {
         int cur = 0;
         for (auto &i: s) {
             int rank = i - 'a';
@@ -19,12 +19,15 @@ namespace ACA {
  
             cur = trie[cur][rank];
         }
+        
         endHere[cur].push_back(idx);
+        
+        return cur;
     }
  
     void init(string patterns[], int n) {
         for (int i = 0; i < n; i++) {
-            insert(patterns[i], i);
+            nodeInACA[i] = insert(patterns[i], i);
         }
 
         queue<int> q;
@@ -37,7 +40,6 @@ namespace ACA {
                 trie[0][i] = 0;
             }
         }
- 
         
         while (q.size()) {
             int cur = q.front();
@@ -52,7 +54,7 @@ namespace ACA {
                 while (trie[f][i] == -1) {
                     f = pi[f];
                 }
- 
+                
                 f = trie[f][i];
                 pi[trie[cur][i]] = f;
                 endHere[trie[cur][i]].insert(endHere[trie[cur][i]].end(), endHere[f].begin(), endHere[f].end());
